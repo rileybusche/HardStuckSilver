@@ -1,2 +1,3 @@
 ./creds/creds.json
 /creds/
+.\__pycache__\
