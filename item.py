@@ -5,7 +5,7 @@ import item_map
 
 pp = pprint.PrettyPrinter(indent=4)
 
-item_file = open('item.json')
+item_file = open('./json/item.json')
 item_json = json.load(item_file)['data']
 
 # Gets Basic Info for an Item and returns a dictionary
