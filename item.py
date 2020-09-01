@@ -1,5 +1,6 @@
 import json
 import pprint
+import re
 import item_map
 
 pp = pprint.PrettyPrinter(indent=4)
@@ -13,9 +14,26 @@ def get_item_info(item_name : str):
 
     item_info = item_json[item_id]
 
+    #Clean up Item Description
+    description = []
+    tag_map = {
+        'br'      : '\n',
+        'stats'   : '',
+        'stats'   : '',
+        'unique'  : '',
+        'unique'  : ''
+    }
+
+    words = re.findall(r"[\w']+", item_info['description'])
+    for word in words:
+        if word in tag_map.keys():
+            description.append(tag_map[word])
+        else:
+            description.append(word)
+
     return_info = {
         'name'        : item_info['name'],
-        'description' : item_info['description'],
+        'description' : ' '.join(description),
         'plaintext'   : item_info['plaintext'],
         'price'       : item_info['gold']['base'],
         'image'       : item_info['image']['full']
