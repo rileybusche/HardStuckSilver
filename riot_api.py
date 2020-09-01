@@ -1,6 +1,5 @@
 import requests
 import champion_map
-from collections import OrderedDict
 
 def get_summoner(summoner_name : str, api_key : str):
     request = requests.get(f'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}?api_key={api_key}')
