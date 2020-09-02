@@ -52,7 +52,8 @@ def create_item_embed(item_info : dict):
     )
     embed.set_image(url="attachment://image.png")
     embed.add_field(name='Description', value=item_info['description'], inline=False)
-    embed.add_field(name='Plain Text', value=item_info['plaintext'], inline=False)
+    if item_info['plaintext'] != '':
+        embed.add_field(name='Plain Text', value=item_info['plaintext'], inline=False)
     embed.add_field(name='Price', value=item_info['price'], inline=False)
 
     return [embed, file]

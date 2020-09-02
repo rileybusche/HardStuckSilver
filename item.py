@@ -14,28 +14,31 @@ def get_item_info(item_name : str):
 
     item_info = item_json[item_id]
 
-    #Clean up Item Description
-    description = []
-    tag_map = {
-        'br'      : '\n',
-        'stats'   : '',
-        'stats'   : '',
-        'unique'  : '',
-        'unique'  : ''
-    }
+    pp.pprint(item_info)
 
-    words = re.findall(r"[\w']+", item_info['description'])
-    for word in words:
-        if word in tag_map.keys():
-            description.append(tag_map[word])
-        else:
-            description.append(word)
+    #Clean up Item Description
+    description = item_info['description']
+
+    tag_list = ['<br>', '<groupLimit>', '<unique>']
+    for tag in tag_list:
+        description = description.replace(tag, '\n')
+
+    groomed_description = ' '
+
+    keep_letter = True
+    for letter in description:
+        if letter in ['<', '>']:
+            keep_letter = not keep_letter
+            continue
+        if keep_letter:
+            groomed_description += letter
+            
 
     return_info = {
         'name'        : item_info['name'],
-        'description' : ' '.join(description),
+        'description' : groomed_description,
         'plaintext'   : item_info['plaintext'],
-        'price'       : item_info['gold']['base'],
+        'price'       : item_info['gold']['total'],
         'image'       : item_info['image']['full']
     }
 
