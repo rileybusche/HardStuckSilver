@@ -36,16 +36,16 @@ async def on_message(message):
         msg_tokens = msg.split()
         summoner_name = msg_tokens[1]
         
-        # try:
-        user_data = riot_api.get_summoner(summoner_name=summoner_name, api_key=api_key)
-        ranked_data = riot_api.get_ranked(summoner_id=user_data['summoner_id'], api_key=api_key)
-        champion_mastery = riot_api.get_mastery(summoner_id=user_data['summoner_id'], api_key=api_key)
+        try:
+            user_data = riot_api.get_summoner(summoner_name=summoner_name, api_key=api_key)
+            ranked_data = riot_api.get_ranked(summoner_id=user_data['summoner_id'], api_key=api_key)
+            champion_mastery = riot_api.get_mastery(summoner_id=user_data['summoner_id'], api_key=api_key)
 
-        embedVar = embed.create_general_embed(user_data, ranked_data, champion_mastery)
+            embedVar = embed.create_general_embed(user_data, ranked_data, champion_mastery)
 
-        await channel.send(embed=embedVar)
-        # except:
-        #     await channel.send(embed=embed.create_error_embed(f"Do Data for {summoner_name}"))
+            await channel.send(embed=embedVar)
+        except:
+            await channel.send(embed=embed.create_error_embed(f"Do Data for {summoner_name}"))
 
     if msg.startswith('!item'):
         msg_tokens = message.content.split()
