@@ -29,9 +29,9 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list):
         rank = ranked_data['tier'] + '_' + ranked_data['rank']
 
         embed.set_image(url=rank_map.get_ranked_armor(rank))
-    except:
+    except Exception as error:
         embed.add_field(name='Rank', value='No Data', inline=False)
-
+        print(error)
         embed.set_image(url=rank_map.get_ranked_armor('NO_DATA'))
     return embed
     
