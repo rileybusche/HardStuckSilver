@@ -34,7 +34,7 @@ async def on_message(message):
     
     if msg.startswith('!league'):
         msg_tokens = msg.split()
-        summoner_name = msg_tokens[1]
+        summoner_name = ' '.join(msg_tokens[1:])
         
         try:
             user_data = riot_api.get_summoner(summoner_name=summoner_name, api_key=api_key)
