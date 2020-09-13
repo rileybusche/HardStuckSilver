@@ -1,11 +1,10 @@
 import requests
 import champion_map
+import urllib.parse
 
 def get_summoner(summoner_name : str, api_key : str):
-
-    summoner_name = summoner_name.replace(' ', '%20')
+    summoner_name = urllib.parse.quote(summoner_name)
     print(summoner_name)
-    print(f'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}?api_key={api_key}')
     request = requests.get(f'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}?api_key={api_key}')
     data = request.json()
 
