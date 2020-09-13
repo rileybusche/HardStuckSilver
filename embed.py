@@ -26,7 +26,11 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list):
         value = ranked_data['tier'] + ' - ' + ranked_data['rank'] + ' - ' + str(ranked_data['lp'])
         embed.add_field(name='Rank', value=value, inline=False)
 
-        rank = ranked_data['tier'] + '_' + ranked_data['rank']
+
+        if ranked_data['tier'] in ['MASTER', 'GRANDMASTER', 'CHALLENGER']:
+            rank = ranked_data['tier']
+        else:
+            rank = ranked_data['tier'] + '_' + ranked_data['rank']
 
         embed.set_image(url=rank_map.get_ranked_armor(rank))
     except Exception as error:
