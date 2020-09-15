@@ -38,6 +38,8 @@ def get_ranked_armor(rank):
         'GRANDMASTER'     : 'https://vignette.wikia.nocookie.net/leagueoflegends/images/7/76/Season_2019_-_Grandmaster_1.png/revision/latest?cb=20181229234923',
 
         'CHALLENGER'      : 'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/5f/Season_2019_-_Challenger_1.png/revision/latest?cb=20181229234913'
+        # 'CHALLENGER'      : 'https://vignette.wikia.nocookie.net/leagueoflegends/images/e/ec/Season_2019_-_Diamond_4.png/revision/latest?cb=20181229234919'
     }
 
+    print(rank_map[rank])
     return rank_map[rank]
