@@ -14,6 +14,8 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list):
         colour=color
     )
 
+    # Level
+    embed.add_field(name='Level', value=user_data['level'], inline=False)
     # Mastery
     embed.add_field(name='Mastery', value=champion_mastery[0], inline=False)
     champion_mastery.pop(0)
@@ -27,14 +29,16 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list):
     # Refactor to use api response code
     try:
         # Rank
-        value = ranked_data['tier'] + ' - ' + ranked_data['rank'] + ' - ' + str(ranked_data['lp'])
-        embed.add_field(name='Rank', value=value, inline=False)
+        embed.add_field(name='Tier', value=ranked_data['tier'].title(), inline=True)
+        embed.add_field(name='Rank', value=ranked_data['rank'], inline=True)
+        embed.add_field(name='League Points', value=ranked_data['lp'], inline=True)
 
         if ranked_data['tier'] in ['MASTER', 'GRANDMASTER', 'CHALLENGER']:
             rank = ranked_data['tier']
         else:
             rank = ranked_data['tier'] + '_' + ranked_data['rank']
-            
+        
+        # Gettting Image for Embed
         embed.set_image(url=rank_map.get_ranked_armor(rank))
 
     except Exception as error:
