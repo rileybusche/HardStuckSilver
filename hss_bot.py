@@ -15,8 +15,8 @@ client = discord.Client()
 
 bot = commands.Bot(command_prefix='!')
 
-token = creds['bot_token']
-api_key = creds['RG-API']
+token = creds['token']
+api_key = creds['api']
 
 bot_owner = 'LiquidLuck#9488'
 
@@ -44,7 +44,8 @@ async def on_message(message):
             embedVar = embed.create_general_embed(user_data, ranked_data, champion_mastery)
 
             await channel.send(embed=embedVar)
-        except:
+        except Exception as error:
+            print(error)
             await channel.send(embed=embed.create_error_embed(f"Do Data for {summoner_name}"))
 
     if msg.startswith('!item'):

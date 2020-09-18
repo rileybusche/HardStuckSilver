@@ -39,5 +39,5 @@ def get_ranked_armor(rank):
 
         'CHALLENGER'      : 'https://vignette.wikia.nocookie.net/leagueoflegends/images/5/5f/Season_2019_-_Challenger_1.png/revision/latest?cb=20181229234913'
     }
-
+    
     return rank_map[rank]

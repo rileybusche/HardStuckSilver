@@ -1,7 +1,13 @@
 import requests
 import champion_map
+import urllib.parse
+# import pprint
+
+# pp = pprint.PrettyPrinter(indent=4)
 
 def get_summoner(summoner_name : str, api_key : str):
+    summoner_name = urllib.parse.quote(summoner_name)
+    print(summoner_name)
     request = requests.get(f'https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner_name}?api_key={api_key}')
     data = request.json()
 
@@ -12,6 +18,10 @@ def get_summoner(summoner_name : str, api_key : str):
         'name'          : data['name'],
         'level'         : data['summonerLevel']
     }
+
+    # print("******User Data******")
+    # pp.pprint(data)
+    # print(user_data)
 
     return user_data
 
@@ -26,6 +36,10 @@ def get_ranked(summoner_id : str, api_key : str):
             ranked_data['tier'] = rank['tier']
             ranked_data['rank'] = rank['rank']
             ranked_data['lp']   = rank['leaguePoints']
+    
+    # print("******Ranked Data******")
+    # pp.pprint(data)
+    # print(ranked_data)
 
     return ranked_data
 
