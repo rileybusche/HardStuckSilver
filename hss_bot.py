@@ -40,7 +40,7 @@ async def on_message(message):
             user_data = riot_api.get_summoner(summoner_name=summoner_name, api_key=api_key)
             ranked_data = riot_api.get_ranked(summoner_id=user_data['summoner_id'], api_key=api_key)
             champion_mastery = riot_api.get_mastery(summoner_id=user_data['summoner_id'], api_key=api_key)
-            nmr_info = nmr.get_mmr(summoner_name)
+            nmr_info = nmr.get_nmr(summoner_name)
 
             embedVar = embed.create_general_embed(user_data, ranked_data, champion_mastery, nmr_info)
 
