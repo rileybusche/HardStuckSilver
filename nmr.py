@@ -4,17 +4,15 @@ import pprint
 
 pp = pprint.PrettyPrinter(indent=4)
 
-def get_mmr(summoner_name : str):
+def get_nmr(summoner_name : str):
     summoner_name = urllib.parse.quote(summoner_name)
     url = f'https://na.whatismymmr.com/api/v1/summoner?name={summoner_name}'
     request = requests.get(url)
 
     text_json = request.json()
 
-    pp.pprint(text_json)
-
     ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
-    summary = text_json['ranked']['summary']
+    summary = text_json['ranked']['summary'].replace('</span>', '\n')
 
     groomed_summary = ' '
 
@@ -31,4 +29,9 @@ def get_mmr(summoner_name : str):
         'summary'       : groomed_summary
     }
 
+    print(text_json['ranked']['summary'])
+
     return nrm_info
+
+if __name__ == "__main__":
+    print(get_nmr('General Sniper'))
