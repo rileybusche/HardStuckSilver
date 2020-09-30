@@ -47,7 +47,7 @@ async def on_message(message):
             await channel.send(embed=embedVar)
         except Exception as error:
             print(error)
-            await channel.send(embed=embed.create_error_embed(f"Do Data for {summoner_name}"))
+            await channel.send(embed=embed.create_error_embed(f"No Data for {summoner_name}"))
 
     if msg.startswith('!item'):
         msg_tokens = message.content.split()
