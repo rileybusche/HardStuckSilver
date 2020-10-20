@@ -9,6 +9,7 @@ def get_info(summoner_name : str, api_key : str):
         ranked_data = riot_api.get_ranked(summoner_id=user_data['summoner_id'], api_key=api_key)
         champion_mastery = riot_api.get_mastery(summoner_id=user_data['summoner_id'], api_key=api_key)
         nmr_info = nmr.get_nmr(summoner_name)
+        print(f'NMR: {nmr_info}')
 
         return embed.create_general_embed(user_data, ranked_data, champion_mastery, nmr_info)
 
