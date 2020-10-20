@@ -12,6 +12,8 @@ def get_nmr(summoner_name : str):
 
         text_json = request.json()
 
+        print(f'TextJSON: {text_json}')
+
         ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
         summary = text_json['ranked']['summary'].replace('</span>', '\n')
 
@@ -33,6 +35,7 @@ def get_nmr(summoner_name : str):
         print(text_json['ranked']['summary'])
 
         return nrm_info
+
     except Exception as error:
         print(f'Failed in NMR: {error}')
 
