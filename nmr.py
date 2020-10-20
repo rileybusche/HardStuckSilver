@@ -11,31 +11,31 @@ def get_nmr(summoner_name : str):
         request = requests.get(url)
 
         text_json = request.json()
-        print("*******NRM****")
-        print(type(text_json['ranked']['avg']))
-        if text_json['ranked']['avg'] == None:
-            print("TRUE")
+        
+        if text_json['ranked']['avg'] != None:
+            ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
 
-        ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
+            summary = text_json['ranked']['summary'].replace('</span>', '\n')
 
-        summary = text_json['ranked']['summary'].replace('</span>', '\n')
+            groomed_summary = ' '
 
-        groomed_summary = ' '
+            keep_letter = True
+            for letter in summary:
+                if letter in ['<', '>']:
+                    keep_letter = not keep_letter
+                    continue
+                if keep_letter:
+                    groomed_summary += letter
 
-        keep_letter = True
-        for letter in summary:
-            if letter in ['<', '>']:
-                keep_letter = not keep_letter
-                continue
-            if keep_letter:
-                groomed_summary += letter
-
-        nrm_info = {
-            'ranked_nmr'    : ranked_nmr,
-            'summary'       : groomed_summary
-        }
-
-        print(text_json['ranked']['summary'])
+            nrm_info = {
+                'ranked_nmr'    : ranked_nmr,
+                'summary'       : groomed_summary
+            }
+        else:
+            nrm_info = {
+                'ranked_nmr'    : '0',
+                'summary'       : 'User has not played enough ranked games recently.'
+            }
 
         return nrm_info
 
