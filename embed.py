@@ -1,17 +1,21 @@
 import discord
 import rank_map
+import urllib.parse
 
 color = 0x30A9DE
 
-def create_general_embed(user_data, ranked_data, champion_mastery : list):
+def create_general_embed(user_data, ranked_data, champion_mastery : list, nmr_info):
+    summoner_name = urllib.parse.quote(user_data['name'])
     # One day I'll move this basic embed creation to a new funciton and just add additional fields as needed, but today is not the day
     embed = discord.Embed(
         title=user_data['name'],
         type='rich',
-        url=f"https://na.op.gg/summoner/userName={user_data['name']}",
+        url=f"https://na.op.gg/summoner/userName={summoner_name}",
         colour=color
     )
 
+    # Level
+    embed.add_field(name='Level', value=user_data['level'], inline=False)
     # Mastery
     embed.add_field(name='Mastery', value=champion_mastery[0], inline=False)
     champion_mastery.pop(0)
@@ -21,18 +25,29 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list):
         value = str(champion['Points'])
         
         embed.add_field(name=name, value=value, inline=True)
+    
+    # Refactor to use api response code
     try:
         # Rank
-        value = ranked_data['tier'] + ' - ' + ranked_data['rank'] + ' - ' + str(ranked_data['lp'])
-        embed.add_field(name='Rank', value=value, inline=False)
+        embed.add_field(name='Tier', value=ranked_data['tier'].title(), inline=True)
+        embed.add_field(name='Rank', value=ranked_data['rank'], inline=True)
+        embed.add_field(name='League Points', value=ranked_data['lp'], inline=True)
+        embed.add_field(name='Ranked NMR', value=nmr_info['ranked_nmr'], inline=False)
+        embed.add_field(name='Summary', value=nmr_info['summary'], inline=False)
 
-        rank = ranked_data['tier'] + '_' + ranked_data['rank']
-
+        if ranked_data['tier'] in ['MASTER', 'GRANDMASTER', 'CHALLENGER']:
+            rank = ranked_data['tier']
+        else:
+            rank = ranked_data['tier'] + '_' + ranked_data['rank']
+        
+        # Gettting Image for Embed
         embed.set_image(url=rank_map.get_ranked_armor(rank))
+
     except Exception as error:
         embed.add_field(name='Rank', value='No Data', inline=False)
         print(error)
         embed.set_image(url=rank_map.get_ranked_armor('NO_DATA'))
+
     return embed
     
 def create_item_embed(item_info : dict):
