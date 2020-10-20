@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import json
-import riot_api, champion_map, embed, item, item_map, nmr
+import riot_api, champion_map, embed, item, item_map, nmr, summoner_info, user_map
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -31,23 +31,22 @@ async def on_message(message):
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
+
+    if msg == '!me':
+        summoner_name = user_map.return_summoner(author)
+        
+        if summoner_name != '':
+            embedObj = summoner_info.get_info(summoner_name, api_key)
+
+            await channel.send(embed=embedObj)
     
     if msg.startswith('!league'):
         msg_tokens = msg.split()
         summoner_name = ' '.join(msg_tokens[1:])
         
-        try:
-            user_data = riot_api.get_summoner(summoner_name=summoner_name, api_key=api_key)
-            ranked_data = riot_api.get_ranked(summoner_id=user_data['summoner_id'], api_key=api_key)
-            champion_mastery = riot_api.get_mastery(summoner_id=user_data['summoner_id'], api_key=api_key)
-            nmr_info = nmr.get_nmr(summoner_name)
+        embedObj = summoner_info.get_info(summoner_name, api_key)
 
-            embedVar = embed.create_general_embed(user_data, ranked_data, champion_mastery, nmr_info)
-
-            await channel.send(embed=embedVar)
-        except Exception as error:
-            print(error)
-            await channel.send(embed=embed.create_error_embed(f"No Data for {summoner_name}"))
+        await channel.send(embed=embedObj)
 
     if msg.startswith('!item'):
         msg_tokens = message.content.split()
