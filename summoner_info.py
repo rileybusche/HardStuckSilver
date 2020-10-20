@@ -13,5 +13,5 @@ def get_info(summoner_name : str, api_key : str):
         return embed.create_general_embed(user_data, ranked_data, champion_mastery, nmr_info)
 
     except Exception as error:
-        print(error)
+        print(f'Failed in Summoner_Info: {error}')
         return embed.create_error_embed(f"No Data for {summoner_name}")
