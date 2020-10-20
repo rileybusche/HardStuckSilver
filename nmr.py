@@ -13,6 +13,8 @@ def get_nmr(summoner_name : str):
         text_json = request.json()
         print("*******NRM****")
         print(type(text_json['ranked']['avg']))
+        if text_json['ranked']['avg'] == None:
+            print("TRUE")
 
         ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
 
