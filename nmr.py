@@ -12,9 +12,9 @@ def get_nmr(summoner_name : str):
 
         text_json = request.json()
 
-        print(f'TextJSON: {text_json}')
-
         ranked_nmr = str(text_json['ranked']['avg']) + ' ± ' + str(text_json['ranked']['err'])
+
+        print(f'RankedNRM: {ranked_nmr}')
         summary = text_json['ranked']['summary'].replace('</span>', '\n')
 
         groomed_summary = ' '
