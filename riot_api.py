@@ -1,9 +1,9 @@
 import requests
 import champion_map
 import urllib.parse
-# import pprint
+import pprint
 
-# pp = pprint.PrettyPrinter(indent=4)
+pp = pprint.PrettyPrinter(indent=4)
 
 def get_summoner(summoner_name : str, api_key : str):
     try:
@@ -20,9 +20,9 @@ def get_summoner(summoner_name : str, api_key : str):
             'level'         : data['summonerLevel']
         }
 
-        # print("******User Data******")
-        # pp.pprint(data)
-        # print(user_data)
+        print("******User Data******")
+        pp.pprint(data)
+        print(user_data)
 
         return user_data
     
@@ -42,9 +42,9 @@ def get_ranked(summoner_id : str, api_key : str):
                 ranked_data['rank'] = rank['rank']
                 ranked_data['lp']   = rank['leaguePoints']
         
-        # print("******Ranked Data******")
-        # pp.pprint(data)
-        # print(ranked_data)
+        print("******Ranked Data******")
+        pp.pprint(data)
+        print(ranked_data)
 
         return ranked_data
 
