@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import json
-import riot_api, champion_map, embed, item, item_map
+import riot_api, champion_map, embed, item, item_map, summoner_info, user_map
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -31,6 +31,14 @@ async def on_message(message):
     # we do not want the bot to reply to itself
     if message.author == client.user:
         return
+
+    if msg == '!me':
+        summoner_name = user_map.return_summoner(author)
+        if summoner_name != '':
+            embed = summoner_info.get_info(summoner_name, api_key)
+
+            await channel.send(embed=embed)
+
     
     if msg.startswith('!league'):
         msg_tokens = msg.split()
@@ -48,6 +56,11 @@ async def on_message(message):
             print(error)
             await channel.send(embed=embed.create_error_embed(f"Do Data for {summoner_name}"))
 
+        embed = summoner_info.get_info(summoner_name, api_key)
+
+        await channel.send(embed=embed)
+        
+    # Off-load this code to a helper file
     if msg.startswith('!item'):
         msg_tokens = message.content.split()
         item_name = " "
