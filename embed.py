@@ -65,6 +65,21 @@ def create_item_embed(item_info : dict):
 
     return [embed, file]
 
+# def create_mastery_embed(champion_mastery : dict):
+#     file = discord.File("/home/ec2-user/item_images/10.16.1/img/item/" + item_info['image'] , filename="image.png")
+#     embed = discord.Embed(
+#         title=item_info['name'],
+#         type='rich',
+#         colour=color
+#     )
+#     embed.set_image(url="attachment://image.png")
+#     embed.add_field(name='Description', value=item_info['description'], inline=False)
+#     if item_info['plaintext'] != '':
+#         embed.add_field(name='Plain Text', value=item_info['plaintext'], inline=False)
+#     embed.add_field(name='Price', value=item_info['price'], inline=False)
+
+#     return [embed, file]
+
 def create_error_embed(error_message : str):
     embed = discord.Embed(
         title=error_message,

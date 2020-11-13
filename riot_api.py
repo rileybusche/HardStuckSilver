@@ -51,11 +51,11 @@ def get_ranked(summoner_id : str, api_key : str):
     except Exception as error:
         print(f'Failed in RiotAPI(get_ranked): {error}')
 
-def get_mastery(summoner_id : str, api_key : str):
+def get_mastery(summoner_id : str, api_key : str, count : int):
     try:
         request = requests.get(f'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summoner_id}?api_key={api_key}')
         data = request.json()
-        top_three = data[0:3]
+        top_three = data[0:count]
 
         mastery = []
 
