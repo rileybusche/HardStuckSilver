@@ -49,9 +49,11 @@ def create_general_embed(user_data, ranked_data, champion_mastery : list, nmr_in
         embed.set_image(url=rank_map.get_ranked_armor('NO_DATA'))
 
     return embed
-    
+
+
 def create_item_embed(item_info : dict):
-    file = discord.File("/home/ec2-user/item_images/10.16.1/img/item/" + item_info['image'] , filename="image.png")
+    file = discord.File("/home/ec2-user/dragontail/10.23.1/img/item/" + item_info['image'] , filename="image.png")
+    # file = discord.File("images/item/" + item_info['image'] , filename="image.png")
     embed = discord.Embed(
         title=item_info['name'],
         type='rich',

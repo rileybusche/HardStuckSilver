@@ -1,4 +1,15 @@
+import json
+import pprint
 import random
+
+pp = pprint.PrettyPrinter(indent=4)
+with open("item.json") as file:
+    data = json.load(file)
+
+items = data['data']
+
+# pp.pprint(items)
+# print(items.keys())
 
 item_map = {   
     'Abyssal Mask': '3001',
@@ -200,12 +211,6 @@ item_map = {
     "Zhonya's Hourglass": '3157'
 }
 
-def get_item_id_from_name(item_name : str) -> str:
-    return item_map[item_name]
-
-def is_item(item_name : str) -> bool:
-    return (item_name in item_map)
-
-def get_random_item() -> str:
-    items = list(item_map.keys())
-    return random.choice(items)
+items = list(item_map.keys())
+# print(items)
+print(random.choice(items))

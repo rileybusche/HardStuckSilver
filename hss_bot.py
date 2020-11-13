@@ -4,7 +4,8 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 import json
-import riot_api, champion_map, embed, item, item_map, nmr, summoner_info, user_map
+import embed
+import riot_api, champion_map, item, item_map, nmr, summoner_info, user_map
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -47,24 +48,24 @@ async def on_message(message):
         embedObj = summoner_info.get_info(summoner_name, api_key)
 
         await channel.send(embed=embedObj)
-
-        embed = summoner_info.get_info(summoner_name, api_key)
-
-        await channel.send(embed=embed)
         
     # Off-load this code to a helper file
     if msg.startswith('!item'):
         msg_tokens = message.content.split()
-        item_name = " "
-        item_name = item_name.join(msg_tokens[1:])
+
+        if len(msg_tokens) == 1:
+            item_name = item_map.get_random_item()
+        else:
+            item_name = " "
+            item_name = item_name.join(msg_tokens[1:])
 
         if item_map.is_item(item_name):
 
             item_info = item.get_item_info(item_name=item_name)
+            
+            embedObj = embed.create_item_embed(item_info)
 
-            return_val = embed.create_item_embed(item_info)
-
-            await channel.send(file=return_val[1], embed=return_val[0])
+            await channel.send(file=embedObj[1], embed=embedObj[0])
         else:
             await channel.send(embed=embed.create_error_embed(f"Could not find data for item: {item_name}"))
         
