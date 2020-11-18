@@ -63,7 +63,7 @@ async def on_message(message):
         else:
             await channel.send(embed=embed.create_error_embed(f"Could not find data for item: {item_name}"))
         
-    # Quit Bot
+    # Quit Bot in Discord
     if msg == 'bot_close_league' and author == bot_owner:
         await client.close()
 
