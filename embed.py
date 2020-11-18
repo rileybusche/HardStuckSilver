@@ -65,6 +65,12 @@ def create_item_embed(item_info : dict):
         embed.add_field(name='Plain Text', value=item_info['plaintext'], inline=False)
     embed.add_field(name='Price', value=item_info['price'], inline=False)
 
+    # Handles Items Path
+    if item_info['to'] != None:
+        embed.add_field(name='Builds Into', value=item_info['to'], inline=False)
+    if item_info['from'] != None:
+        embed.add_field(name='Builds From', value=item_info['from'], inline=False)
+
     return [embed, file]
 
 # def create_mastery_embed(champion_mastery : dict):

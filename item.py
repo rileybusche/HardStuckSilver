@@ -42,6 +42,23 @@ def get_item_info(item_name : str):
         'image'       : item_info['image']['full']
     }
 
+    to_items = ''
+    from_items = ''
+    if 'to' in item_info:
+        for item in item_info['to']:
+            to_items += item_map.get_item_name_from_id(item) + ', '
+        # Strips whitespace and comma from last item
+        return_info['to'] = to_items[:-2]
+    else:
+        return_info['to'] = None
+    if 'from' in item_info:
+        for item in item_info['from']:
+            to_items += item_map.get_item_name_from_id(item) + ', '
+        # Strips whitespace and comma from last item
+        return_info['from'] = from_items[:-2]
+    else:
+        return_info['from'] = None
+
     return return_info
 
 

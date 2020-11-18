@@ -200,6 +200,8 @@ item_map = {
     "Zhonya's Hourglass": '3157'
 }
 
+reverse_item_map = dict([(value, key) for key, value in item_map.items()])
+
 def get_item_id_from_name(item_name : str) -> str:
     return item_map[item_name]
 
@@ -209,3 +211,6 @@ def is_item(item_name : str) -> bool:
 def get_random_item() -> str:
     items = list(item_map.keys())
     return random.choice(items)
+
+def get_item_name_from_id(item_id : str) -> str:
+    return reverse_item_map[item_id]
